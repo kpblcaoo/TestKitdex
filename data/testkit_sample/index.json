@@ -1,0 +1,13 @@
+{
+  "version": "1.0.0",
+  "generators": {
+    "basic": ["create_user", "create_message", "create_chat"],
+    "specialized": ["captcha", "moderation", "admin"]
+  },
+  "tags": {
+    "basic": ["user", "message", "chat"],
+    "telegram": ["telegram", "bot", "api"],
+    "moderation": ["moderation", "ban", "allow"],
+    "captcha": ["captcha", "bait", "valid"]
+  }
+}
