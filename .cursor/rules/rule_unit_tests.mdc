@@ -1,0 +1,17 @@
+# Unit Tests Rules
+
+- Пиши unit тесты в tests/unit/ с именем test_[module_name].py
+- Используй Given-When-Then структуру в каждом тесте
+- Создавай test data через factories в tests/factories/
+- Покрытие unit тестов > 95%
+- Один тест = одна функциональность
+- Не делай тесты зависимыми друг от друга
+- Группируй связанные тесты в классы
+- Используй setup_method() для фикстур
+- Именуй тесты как test_what_it_tests
+- Не тестируй private методы
+- Unit тесты < 1 сек на тест
+description:
+globs:
+alwaysApply: false
+---

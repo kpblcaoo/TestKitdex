@@ -1,0 +1,14 @@
+# Test Factories Rules
+
+- Создавай test data через factories в tests/factories/
+- Используй разумные defaults в factories
+- Поддерживай override через kwargs
+- Создавай разные factories для разных сценариев
+- Именуй factories как create_what_it_creates
+- Не создавай слишком сложные объекты
+- Не делай factories зависимыми друг от друга
+- Документируй назначение каждой factory
+description:
+globs:
+alwaysApply: false
+---

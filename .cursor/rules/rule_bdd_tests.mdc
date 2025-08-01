@@ -1,0 +1,15 @@
+# BDD Tests Rules
+
+- Начинай с Gherkin сценария в features/
+- Создавай step definitions в features/steps/ как тонкий слой
+- Передавай данные между шагами через context
+- Используй существующие unit тесты для проверок
+- Создавай test data в Given шагах
+- Не дублируй бизнес-логику в step definitions
+- Покрытие BDD сценариев > 80%
+- BDD тесты < 10 сек на сценарий
+- Не создавай сложную логику в step definitions
+description:
+globs:
+alwaysApply: false
+---

@@ -1,0 +1,13 @@
+# Test Performance Rules
+
+- Unit тесты < 1 сек на тест
+- Integration тесты < 5 сек на тест
+- BDD тесты < 10 сек на сценарий
+- Полный test suite < 2 минуты
+- Не делай медленные тесты без необходимости
+- Используй assert messages для понятных ошибок
+- Мониторь производительность тестов
+description:
+globs:
+alwaysApply: false
+---
