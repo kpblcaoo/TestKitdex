@@ -8,6 +8,6 @@
 - Используй assert messages для понятных ошибок
 - Мониторь производительность тестов
 description:
-globs:
+globs: test_*.py,*test*.py,tests/**/*.py,features/**/*.py,pytest.ini,conftest.py
 alwaysApply: false
 ---

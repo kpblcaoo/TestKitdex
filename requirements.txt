@@ -1,17 +1,30 @@
-# Core dependencies
+# Core Dependencies
 fastapi>=0.104.0
 uvicorn>=0.24.0
 pydantic>=2.5.0
 alembic>=1.12.0
 sqlalchemy>=2.0.0
 
-# Testing
+# Testing Framework
 pytest>=7.4.0
 behave>=1.2.6
-factory-boy>=3.3.0
 pytest-asyncio>=0.21.0
 
-# Development
+# Test Data Management
+factory-boy>=3.3.0
+Faker>=20.0.0
+pytest-factoryboy>=2.6.0
+parse>=1.20.0
+
+# Test Execution & Performance
+pytest-xdist>=3.3.0
+pytest-benchmark>=4.0.0
+
+# Code Quality & Coverage
+pytest-cov>=4.1.0
+pytest-mock>=3.12.0
+
+# Development & Code Quality
 black>=23.10.0
 flake8>=6.1.0
 mypy>=1.7.0

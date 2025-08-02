@@ -12,6 +12,6 @@
 - Не тестируй private методы
 - Unit тесты < 1 сек на тест
 description:
-globs:
+globs: test_*.py,tests/unit/**/*.py,tests/**/test_*.py
 alwaysApply: false
 ---

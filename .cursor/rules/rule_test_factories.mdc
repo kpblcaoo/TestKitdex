@@ -9,6 +9,6 @@
 - Не делай factories зависимыми друг от друга
 - Документируй назначение каждой factory
 description:
-globs:
+globs: *factory*.py,tests/factories/**/*.py,tests/**/*_factory.py,tests/**/factories.py
 alwaysApply: false
 ---

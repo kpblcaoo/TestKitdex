@@ -10,6 +10,6 @@
 - BDD тесты < 10 сек на сценарий
 - Не создавай сложную логику в step definitions
 description:
-globs:
+globs: *.feature,features/**/*.feature,features/steps/**/*.py,features/environment.py
 alwaysApply: false
 ---

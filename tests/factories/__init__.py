@@ -1,18 +1,25 @@
 """
-Test factories for creating test data.
+Test factories - Backward compatibility layer
+Импортирует из нового TestKit для обратной совместимости
 """
 
-from .csharp_method_factory import (
+import os
+import sys
+
+# Добавляем корень проекта в путь
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
+
+# Импортируем из нового TestKit
+from data.testkit_sample.factories import (
     CSharpMethodFactory,
+    CSharpCodeFactory,
     create_user_factory,
     create_message_factory,
     create_generic_factory,
     create_validation_method,
-    create_simple_method
-)
-
-from .csharp_code_factory import (
-    CSharpCodeFactory,
+    create_simple_method,
     create_user_factory_code,
     create_message_factory_code,
     create_generic_factory_code,
@@ -21,16 +28,13 @@ from .csharp_code_factory import (
 )
 
 __all__ = [
-    # Method factories
     'CSharpMethodFactory',
+    'CSharpCodeFactory',
     'create_user_factory',
     'create_message_factory',
     'create_generic_factory',
     'create_validation_method',
     'create_simple_method',
-    
-    # Code factories
-    'CSharpCodeFactory',
     'create_user_factory_code',
     'create_message_factory_code',
     'create_generic_factory_code',
