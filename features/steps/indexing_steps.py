@@ -2,7 +2,72 @@
 Step definitions for TestKit indexing scenarios.
 """
 
-from behave import then
+from behave import given, when, then
+
+# Given steps - только уникальные для indexing
+@given("there are C# files with tagged methods")
+def step_impl(context):
+    """Setup C# files with tagged methods"""
+    context.csharp_files = ["UserFactory.cs", "MessageFactory.cs"]
+    context.indexed_methods = 0
+
+@given("there are methods with multiple tags")
+def step_impl(context):
+    """Setup methods with multiple tags"""
+    context.multi_tagged_methods = True
+    context.indexed_methods = 0
+
+@given("there are malformed C# files")
+def step_impl(context):
+    """Setup malformed C# files"""
+    context.malformed_files = ["broken.cs"]
+    context.indexed_methods = 0
+
+@given("there is a C# method with complex signature")
+def step_impl(context):
+    """Setup complex method signature"""
+    context.complex_signature = True
+    context.indexed_methods = 0
+
+@given("there are methods with XML documentation")
+def step_impl(context):
+    """Setup methods with XML documentation"""
+    context.xml_documented_methods = True
+    context.indexed_methods = 0
+
+@given("there are static and instance methods")
+def step_impl(context):
+    """Setup static and instance methods"""
+    context.method_types = ["static", "instance"]
+    context.indexed_methods = 0
+
+@given("there are generic and non-generic methods")
+def step_impl(context):
+    """Setup generic and non-generic methods"""
+    context.generic_methods = True
+    context.indexed_methods = 0
+
+@given("there is a TestKit with 1000+ methods")
+def step_impl(context):
+    """Setup large TestKit"""
+    context.large_testkit = True
+    context.indexed_methods = 0
+
+@given("there is an existing indexed TestKit")
+def step_impl(context):
+    """Setup existing indexed TestKit"""
+    context.previous_count = 50
+    context.indexed_methods = 50
+
+@given("there are new or modified files")
+def step_impl(context):
+    """Setup new or modified files"""
+    context.new_files = ["NewFactory.cs"]
+    context.modified_files = ["UpdatedFactory.cs"]
+    context.indexed_methods = 55  # Increased count
+
+# When steps - используем универсальный шаг из common_steps.py
+# Убираем дублирующиеся @when шаги, так как они уже есть в common_steps.py
 
 # Оставляем только уникальные проверки (assert-ы)
 

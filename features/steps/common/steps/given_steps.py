@@ -17,19 +17,35 @@ def step_impl(context, data_type, condition):
     context.test_data = builder.build()
 
 
-@given("I have {data_type}")
+@given("I have {data_type} data")
 def step_impl(context, data_type):
-    """Упрощенный шаг для создания данных"""
+    """Упрощенный шаг для создания данных без условий"""
     # Используем диспетчеризацию для создания данных
     builder = create_bdd_data()
     builder = dispatch(builder, data_type)
     context.test_data = builder.build()
 
 
+# Специфичные шаги для Background секции
+@given("I have a clean database")
+def step_impl(context):
+    """Setup clean database for tests"""
+    context.db_path = "/tmp/testkit_test.db"
+    context.indexed_methods = 0
+    context.previous_count = 0
+
+
+@given("I have a TestKit directory")
+def step_impl(context):
+    """Setup TestKit directory for tests"""
+    context.testkit_dir = "/tmp/testkit_sample"
+    context.indexed_methods = 0
+
+
 def create_bdd_data():
     """Создание BDD builder"""
     try:
-        from data.testkit_sample.builders.bdd_builders import create_bdd_data
+        from testkitdex.data.testkit_sample.builders.bdd_builders import create_bdd_data
         return create_bdd_data()
     except ImportError:
         # Fallback для тестов

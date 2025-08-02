@@ -132,9 +132,11 @@ class CSharpParser:
         
         summary = summary_match.group(1).strip()
         
-        # Extract tags from the XML documentation
+        # Extract tags from the XML documentation block (not just from summary)
         tags = []
-        tags_match = self.tags_pattern.search(summary_match.group(0))
+        # Look for tags in the entire XML documentation block before the method
+        xml_doc_block = before_method[summary_match.start():]
+        tags_match = self.tags_pattern.search(xml_doc_block)
         if tags_match:
             tags_text = tags_match.group(1).strip()
             tags = [tag.strip() for tag in tags_text.split(',') if tag.strip()]
