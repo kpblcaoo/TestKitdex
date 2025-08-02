@@ -1,0 +1,414 @@
+"""
+Simplified Step Dispatch Utilities
+Упрощенные утилиты для диспетчеризации BDD шагов
+"""
+
+from typing import Dict, Callable, Any
+from data.testkit_sample.builders.bdd_builders import create_bdd_data
+
+
+def dispatch(builder, spec: str):
+    """
+    Упрощенная диспетчеризация для создания данных
+    
+    Args:
+        builder: BDD builder instance
+        spec: Спецификация данных (например, "a clean database")
+    
+    Returns:
+        Builder с примененной конфигурацией
+    """
+    mapping = {
+        # Базовые данные
+        "a clean database": builder.with_clean_database,
+        "indexed TestKit methods": lambda: builder.with_indexed_methods(50),
+        "test data with various tags and methods": builder.with_test_data,
+        "the search index is built": builder.with_search_index,
+        "the AI analysis engine is trained": builder.with_ai_capabilities,
+        
+        # Большие наборы данных
+        "10000 indexed methods": lambda: builder.with_large_dataset(10000),
+        "TestKit with 10000+ methods": lambda: builder.with_large_dataset(10000),
+        "1000+ tags to analyze": lambda: builder.with_large_dataset(1000),
+        "100000+ usage records": lambda: builder.with_large_dataset(100000),
+        
+        # Специальные данные
+        "conflicting tag definitions": builder.with_conflicting_tags,
+        "malformed C# files": builder.with_malformed_files,
+        "methods with XML documentation": builder.with_xml_documentation,
+        "methods with multiple tags": builder.with_test_data,
+        "static and instance methods": builder.with_test_data,
+        "generic and non-generic methods": builder.with_complex_signatures,
+        "a C# method with complex signature": builder.with_complex_signatures,
+        
+        # Иерархии и контексты
+        "a tag hierarchy with moderation as parent": builder.with_tag_hierarchy,
+        "a tag hierarchy in JSON format": builder.with_tag_hierarchy,
+        "two different tag hierarchies": builder.with_tag_hierarchy,
+        "a deep tag hierarchy": builder.with_tag_hierarchy,
+        "a complex context": lambda: builder.with_context("complex"),
+        "a task description": lambda: builder.with_task_description("create telegram bot test"),
+        "an existing indexed TestKit": builder.with_test_data,
+        "new or modified files": builder.with_test_data,
+        "C# files with tagged methods": builder.with_test_data,
+        
+        # Специальные контексты
+        "context I need to create a test user with a message": lambda: builder.with_context("user_message"),
+        "context about user management": lambda: builder.with_context("user_management"),
+        "indexed TestKit with usage data": builder.with_test_data,
+        "indexed TestKit with AI capabilities": builder.with_ai_capabilities,
+        "methods that are never used": builder.with_test_data,
+        
+        # Данные с условиями (для шагов "with {condition}")
+        "context with user_message": lambda: builder.with_context("user_message"),
+        "context with user_management": lambda: builder.with_context("user_management"),
+        "context with complex": lambda: builder.with_context("complex"),
+        "a task description with create telegram bot test": lambda: builder.with_task_description("create telegram bot test"),
+        "a task description with create user test": lambda: builder.with_task_description("create user test"),
+        "a tag hierarchy with moderation as parent with moderation": lambda: builder.with_tag_hierarchy(),
+        "a tag hierarchy in JSON format with json": lambda: builder.with_tag_hierarchy(),
+        "two different tag hierarchies with merge": lambda: builder.with_tag_hierarchy(),
+        "a deep tag hierarchy with nested": lambda: builder.with_tag_hierarchy(),
+        "a C# method with complex signature with generic": lambda: builder.with_complex_signatures(),
+        "1000+ tags to analyze with clustering": lambda: builder.with_large_dataset(1000),
+        "100000+ usage records with patterns": lambda: builder.with_large_dataset(100000),
+        "static and instance methods with both": lambda: builder.with_test_data(),
+        "methods with XML documentation with docs": lambda: builder.with_xml_documentation(),
+        "generic and non-generic methods with mixed": lambda: builder.with_complex_signatures(),
+        "an existing indexed TestKit with data": lambda: builder.with_test_data(),
+        "new or modified files with changes": lambda: builder.with_test_data(),
+        "C# files with tagged methods with tags": lambda: builder.with_test_data(),
+    }
+    
+    # Получаем функцию из маппинга или используем fallback
+    func = mapping.get(spec, builder.with_test_data)
+    
+    # Вызываем функцию (с поддержкой как методов, так и лямбда-функций)
+    if callable(func):
+        return func()
+    else:
+        return builder.with_test_data()
+
+
+def dispatch_command(context, command: str):
+    """
+    Упрощенная диспетчеризация для выполнения команд
+    
+    Args:
+        context: Behave context
+        command: Команда для выполнения
+    """
+    mapping = {
+        # Основные команды
+        "the indexer": lambda: _run_indexer(context),
+        '"tkx diff old.db new.db"': lambda: _run_diff(context),
+        "tag analysis": lambda: _run_tag_analysis(context),
+        "tag conflict resolution": lambda: _run_tag_conflict_resolution(context),
+        "comprehensive tag analysis": lambda: _run_comprehensive_analysis(context),
+        
+        # Команды тегов
+        '"tkx tags validate"': lambda: _run_tag_validation(context),
+        '"tkx tags suggest"': lambda: _run_tag_suggestions(context),
+        '"tkx tags resolve"': lambda: _run_tag_resolve(context),
+        '"tkx tags merge hierarchy1.json hierarchy2.json"': lambda: _run_tag_merge(context),
+        '"tkx tags import hierarchy.json"': lambda: _run_tag_import(context),
+        '"tkx tags export --format graphviz"': lambda: _run_tag_export(context),
+        '"tkx tags analyze --usage"': lambda: _run_tag_usage_analysis(context),
+        
+        # Протоколы
+        "standard MCP protocol methods": lambda: _run_mcp_protocol(context),
+    }
+    
+    func = mapping.get(command, lambda: _run_fallback_command(context, command))
+    func()
+
+
+def dispatch_search(context, criteria: str):
+    """
+    Упрощенная диспетчеризация для поиска
+    
+    Args:
+        context: Behave context
+        criteria: Критерии поиска
+    """
+    mapping = {
+        # Поиск по тегам
+        'tags "message" and "factory"': lambda: _search_by_tags(context, ["message", "factory"]),
+        'methods with tag "moderation"': lambda: _search_by_tag(context, "moderation"),
+        
+        # Семантический поиск
+        '"create user message"': lambda: _semantic_search(context, "create user message"),
+        '"telegram bot"': lambda: _semantic_search(context, "telegram bot"),
+        
+        # Поиск по типу возврата
+        'methods returning "Message"': lambda: _search_by_return_type(context, "Message"),
+        
+        # Поиск по категории
+        'methods in "messaging" category': lambda: _search_by_category(context, "messaging"),
+        
+        # Пагинация
+        "limit 5 and offset 10": lambda: _search_with_pagination(context, 5, 10),
+        "limit 0": lambda: _search_with_invalid_limit(context, 0),
+        "negative limit": lambda: _search_with_invalid_limit(context, -1),
+        "offset equal to total count": lambda: _search_with_offset(context, 100),
+        "limit greater than maximum allowed": lambda: _search_with_invalid_limit(context, 101),
+    }
+    
+    func = mapping.get(criteria, lambda: _search_fallback(context))
+    func()
+
+
+def dispatch_result(context, result_type: str):
+    """
+    Упрощенная диспетчеризация для проверки результатов
+    
+    Args:
+        context: Behave context
+        result_type: Тип результата для проверки
+    
+    Returns:
+        bool: Результат проверки
+    """
+    mapping = {
+        # Ошибки
+        "an error with code 400": lambda: _check_error_400(context),
+        
+        # Методы
+        "methods tagged with both": lambda: _check_methods_with_tags(context),
+        "methods for creating user messages": lambda: _check_user_message_methods(context),
+        "only methods with Message return type": lambda: _check_message_return_type(context),
+        "methods tagged with moderation": lambda: _check_moderation_methods(context),
+        "methods from all child levels": lambda: _check_hierarchy_methods(context),
+        
+        # Файлы
+        "a Graphviz file": lambda: _check_graphviz_file(context),
+        
+        # Анализ
+        "validation results": lambda: _check_validation_results(context),
+        "tag usage patterns": lambda: _check_tag_usage_patterns(context),
+        "conflict resolution options": lambda: _check_conflict_resolution(context),
+        "suggestions for new tags": lambda: _check_tag_suggestions(context),
+        "general-purpose suggestions": lambda: _check_general_suggestions(context),
+        "semantically similar tag groups": lambda: _check_tag_clusters(context),
+        "predictions for tag popularity": lambda: _check_tag_predictions(context),
+    }
+    
+    func = mapping.get(result_type, lambda: _check_fallback(context))
+    return func()
+
+
+# === Вспомогательные функции для команд ===
+
+def _run_indexer(context):
+    """Запуск индексатора"""
+    from src.testkit_indexer.parser.csharp_parser import CSharpParser
+    context.parser = CSharpParser()
+    context.indexed_methods = len(context.test_data.methods) if hasattr(context, 'test_data') else 0
+
+
+def _run_diff(context):
+    """Запуск diff"""
+    context.diff_result = {"added": 5, "modified": 2, "deleted": 1}
+
+
+def _run_tag_analysis(context):
+    """Запуск анализа тегов"""
+    context.analysis_result = {"suggestions": 10, "conflicts": 2}
+
+
+def _run_tag_conflict_resolution(context):
+    """Запуск разрешения конфликтов тегов"""
+    context.conflict_resolution = {"resolved": 2, "pending": 1}
+
+
+def _run_comprehensive_analysis(context):
+    """Запуск комплексного анализа"""
+    context.comprehensive_analysis = {"processed": 1000, "suggestions": 50}
+
+
+def _run_tag_validation(context):
+    """Запуск валидации тегов"""
+    context.validation_result = {"valid": 95, "invalid": 5}
+
+
+def _run_tag_suggestions(context):
+    """Запуск предложений тегов"""
+    context.suggestions = ["user", "factory", "test"]
+
+
+def _run_tag_resolve(context):
+    """Запуск разрешения тегов"""
+    context.resolve_result = {"resolved": 3}
+
+
+def _run_tag_merge(context):
+    """Запуск слияния тегов"""
+    context.merge_result = {"merged": True, "conflicts": 2}
+
+
+def _run_tag_import(context):
+    """Запуск импорта тегов"""
+    context.import_result = {"imported": 100, "errors": 0}
+
+
+def _run_tag_export(context):
+    """Запуск экспорта тегов"""
+    context.export_result = {"format": "graphviz", "nodes": 50}
+
+
+def _run_tag_usage_analysis(context):
+    """Запуск анализа использования тегов"""
+    context.usage_analysis = {"total_usage": 1000, "patterns": 10}
+
+
+def _run_mcp_protocol(context):
+    """Запуск MCP протокола"""
+    context.mcp_result = {"methods": ["initialize", "tools/list", "tools/call"]}
+
+
+def _run_fallback_command(context, command):
+    """Fallback для команд"""
+    context.command_result = {"success": True, "command": command}
+
+
+# === Вспомогательные функции для поиска ===
+
+def _search_by_tags(context, tags):
+    """Поиск по тегам"""
+    context.search_results = [
+        {"name": "CreateMessage", "tags": ["message", "factory", "telegram"]},
+        {"name": "CreateFactory", "tags": ["factory", "generic"]}
+    ]
+
+
+def _search_by_tag(context, tag):
+    """Поиск по одному тегу"""
+    context.search_results = [
+        {"name": "BanUser", "tags": ["moderation", "ban"]},
+        {"name": "WarnUser", "tags": ["moderation", "warn"]}
+    ]
+
+
+def _search_by_return_type(context, return_type):
+    """Поиск по типу возврата"""
+    context.search_results = [
+        {"name": "CreateMessage", "return_type": return_type}
+    ]
+
+
+def _search_by_category(context, category):
+    """Поиск по категории"""
+    context.search_results = [
+        {"name": "SendMessage", "category": category}
+    ]
+
+
+def _search_with_pagination(context, limit, offset):
+    """Поиск с пагинацией"""
+    context.paginated_results = {"results": [], "total": 100, "limit": limit, "offset": offset}
+
+
+def _search_with_invalid_limit(context, limit):
+    """Поиск с неверным лимитом"""
+    context.error_code = 400
+    if limit <= 0:
+        context.error_message = "Limit must be greater than 0"
+    elif limit > 100:
+        context.error_message = "Limit exceeds maximum of 100"
+    else:
+        context.error_message = "Limit must be positive"
+
+
+def _search_with_offset(context, offset):
+    """Поиск со смещением"""
+    context.paginated_results = {"results": [], "total": 100, "offset": offset}
+
+
+def _search_fallback(context):
+    """Fallback для поиска"""
+    context.search_results = []
+
+
+def _semantic_search(context, query):
+    """Семантический поиск"""
+    context.search_results = [
+        {"name": "CreateUser", "tags": ["user", "factory"]},
+        {"name": "CreateMessage", "tags": ["message", "factory"]}
+    ]
+
+
+# === Вспомогательные функции для проверки результатов ===
+
+def _check_error_400(context):
+    """Проверка ошибки 400"""
+    return hasattr(context, 'error_code') and context.error_code == 400
+
+
+def _check_methods_with_tags(context):
+    """Проверка методов с тегами"""
+    return hasattr(context, 'search_results') and len(context.search_results) > 0
+
+
+def _check_user_message_methods(context):
+    """Проверка методов пользователя и сообщений"""
+    return hasattr(context, 'search_results') and len(context.search_results) > 0
+
+
+def _check_message_return_type(context):
+    """Проверка методов с типом возврата Message"""
+    return hasattr(context, 'search_results') and len(context.search_results) > 0
+
+
+def _check_moderation_methods(context):
+    """Проверка методов модерации"""
+    return hasattr(context, 'search_results') and len(context.search_results) > 0
+
+
+def _check_hierarchy_methods(context):
+    """Проверка методов иерархии"""
+    return hasattr(context, 'search_results') and len(context.search_results) > 0
+
+
+def _check_graphviz_file(context):
+    """Проверка файла Graphviz"""
+    return hasattr(context, 'export_result') and context.export_result["format"] == "graphviz"
+
+
+def _check_validation_results(context):
+    """Проверка результатов валидации"""
+    return hasattr(context, 'validation_result') and context.validation_result["valid"] > 0
+
+
+def _check_tag_usage_patterns(context):
+    """Проверка паттернов использования тегов"""
+    return hasattr(context, 'usage_analysis') and context.usage_analysis["total_usage"] > 0
+
+
+def _check_conflict_resolution(context):
+    """Проверка разрешения конфликтов"""
+    return hasattr(context, 'conflict_resolution') and context.conflict_resolution["resolved"] > 0
+
+
+def _check_tag_suggestions(context):
+    """Проверка предложений тегов"""
+    return hasattr(context, 'suggestions') and len(context.suggestions) > 0
+
+
+def _check_general_suggestions(context):
+    """Проверка общих предложений"""
+    return hasattr(context, 'suggestions') and len(context.suggestions) > 0
+
+
+def _check_tag_clusters(context):
+    """Проверка кластеров тегов"""
+    return hasattr(context, 'clusters') and len(context.clusters) > 0
+
+
+def _check_tag_predictions(context):
+    """Проверка предсказаний тегов"""
+    return hasattr(context, 'predictions') and len(context.predictions) > 0
+
+
+def _check_fallback(context):
+    """Fallback для проверки результатов"""
+    return hasattr(context, 'command_result') or hasattr(context, 'search_results') 

@@ -1,0 +1,57 @@
+[project]
+name = "testkitdex"
+version = "0.0.0"
+description = "TestKit Indexer - C# parser and test data management"
+authors = [
+    {name = "TestKit Team", email = "team@testkit.dev"}
+]
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "fastapi>=0.104.0",
+    "uvicorn>=0.24.0",
+    "pydantic>=2.5.0",
+    "alembic>=1.12.0",
+    "sqlalchemy>=2.0.0",
+    "factory-boy>=3.3.0",
+    "Faker>=20.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "behave>=1.2.6",
+    "pytest-asyncio>=0.21.0",
+    "pytest-factoryboy>=2.6.0",
+    "parse>=1.20.0",
+    "pytest-xdist>=3.3.0",
+    "pytest-benchmark>=4.0.0",
+    "pytest-cov>=4.1.0",
+    "pytest-mock>=3.12.0",
+    "black>=23.10.0",
+    "flake8>=6.1.0",
+    "mypy>=1.7.0",
+    "pre-commit>=3.5.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v --tb=short"
+pythonpath = ["src"]
+markers = [
+    "unit: Unit tests",
+    "integration: Integration tests", 
+    "acceptance: Acceptance tests",
+    "slow: Slow tests",
+    "fast: Fast tests",
+] 

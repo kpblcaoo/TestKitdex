@@ -1,17 +1,11 @@
 """
-Pytest configuration
+Pytest configuration for TestKit tests
 """
-from data.testkit_sample import TK
-from data.testkit_sample.di import container
 
-# Глобальные фикстуры
-@pytest.fixture(scope="session")
-def testkit():
-    """Глобальный TestKit"""
-    return TK
+import pytest
 
-@pytest.fixture(scope="function")
-def di_container():
-    """DI контейнер для каждого теста"""
-    container.clear()
-    yield container 
+@pytest.fixture
+def csharp_parser():
+    """C# parser fixture."""
+    from testkitdex.testkit_indexer.parser import CSharpParser
+    return CSharpParser() 
