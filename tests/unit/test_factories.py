@@ -6,10 +6,9 @@ import sys
 import os
 
 # Добавляем корень проекта в путь
-project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
-sys.path.insert(0, project_root)
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 
-from data.testkit_sample.factories import (
+from testkitdex.data.testkit_sample.factories import (
     CSharpMethodFactory,
     CSharpCodeFactory,
     create_user_factory,

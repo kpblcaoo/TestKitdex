@@ -3,8 +3,8 @@ Unit tests for C# parser functionality using TestKit.
 """
 import pytest
 
-from src.testkit_indexer.parser.csharp_parser import CSharpParser
-from data.testkit_sample.factories import (
+from testkitdex.testkit_indexer.parser.csharp_parser import CSharpParser
+from testkitdex.data.testkit_sample.factories import (
     create_user_factory_code,
     create_message_factory_code,
     create_generic_factory_code,

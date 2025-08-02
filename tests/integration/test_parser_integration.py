@@ -4,7 +4,7 @@ Integration tests for C# parser with real files.
 import pytest
 import tempfile
 import os
-from src.testkit_indexer.parser import CSharpParser
+from testkitdex.testkit_indexer.parser import CSharpParser
 from tests.factories import create_testkit_class_code
 
 

@@ -12,7 +12,7 @@ if project_root not in sys.path:
     sys.path.insert(0, project_root)
 
 # Импортируем из нового TestKit
-from data.testkit_sample.factories import (
+from testkitdex.data.testkit_sample.factories import (
     CSharpMethodFactory,
     CSharpCodeFactory,
     create_user_factory,
